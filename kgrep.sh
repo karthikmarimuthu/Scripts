@@ -1,8 +1,13 @@
 #!/bin/bash
-#script to find a string in your current working directory
 cwd=`pwd`
 echo "Enter the string you want to search"
 read word
-#echo $cwd
-#echo $word
-find "$cwd" -type f -exec grep -H "$word" {} +
+echo "Enter the filename to search or hit enter to search in current directory"
+read file
+newfile=$file
+if [[ -z "$file" ]]; then
+	grep -r "$word"
+else
+#	find . -type f -name "$file" -print0 | xargs -I {} -0 grep -l "$word" "{}"
+	grep -r "$word" $newfile
+fi
